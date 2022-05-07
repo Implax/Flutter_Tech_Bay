@@ -1,10 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:tech_bay/components/custom_surfix_icon.dart';
+import 'package:tech_bay/screens/home/home_screen.dart';
 import '../../../components/default_button.dart';
 import 'package:tech_bay/components/form_error.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
-import 'package:tech_bay/screens/login_success/login_success_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignForm extends StatefulWidget {
   @override
@@ -12,6 +14,9 @@ class SignForm extends StatefulWidget {
 }
 
 class _SignFormState extends State<SignForm> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
   String? email;
   String? password;
@@ -34,6 +39,17 @@ class _SignFormState extends State<SignForm> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsFlutterBinding.ensureInitialized();
+    initializeAppFirebase();
+  }
+
+  initializeAppFirebase() async {
+    await Firebase.initializeApp();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
@@ -47,14 +63,17 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
             text: "Continue",
-            press: () {
+            press: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
+                await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    email: _emailController.text.toString().trim(),
+                    password: _passwordController.text.toString().trim());
                 Navigator.push(
                     context,
                     new MaterialPageRoute(
-                        builder: (context) => new LoginSuccessScreen()));
+                        builder: (context) => new HomeScreen()));
               }
             },
           ),
@@ -65,6 +84,7 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      controller: _passwordController,
       obscureText: true,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
@@ -96,6 +116,7 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      controller: _emailController,
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {

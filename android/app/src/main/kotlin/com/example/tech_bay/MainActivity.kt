@@ -1,4 +1,4 @@
-package com.example.tech_bay
+package com.commerce.tech_bay
 
 import io.flutter.embedding.android.FlutterActivity
 

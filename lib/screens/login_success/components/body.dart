@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tech_bay/components/default_button.dart';
+import 'package:tech_bay/screens/sign_in/sign_in_screen.dart';
 import 'package:tech_bay/size_config.dart';
 import 'package:tech_bay/screens/home/home_screen.dart';
 
@@ -15,7 +16,7 @@ class Body extends StatelessWidget {
         ),
         SizedBox(height: SizeConfig.screenHeight * 0.08),
         Text(
-          "Login Success",
+          "Sign Up Success",
           style: TextStyle(
             fontSize: getProportionateScreenWidth(30),
             fontWeight: FontWeight.bold,
@@ -26,12 +27,12 @@ class Body extends StatelessWidget {
         SizedBox(
           width: SizeConfig.screenWidth * 0.6,
           child: DefaultButton(
-            text: "Back to home",
+            text: "Back to Sign In",
             press: () {
               Navigator.push(
                   context,
                   new MaterialPageRoute(
-                      builder: (context) => new HomeScreen()));
+                      builder: (context) => new SignInScreen()));
             },
           ),
         ),

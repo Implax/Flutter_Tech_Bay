@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tech_bay/screens/splash/splash_screen.dart';
-import 'package:tech_bay/constants.dart';
 import 'routes.dart';
 import 'package:tech_bay/theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

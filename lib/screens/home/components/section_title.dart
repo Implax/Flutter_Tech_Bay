@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:tech_bay/routes.dart';
+import 'package:tech_bay/screens/all_products/all_products.dart';
 import '../../../size_config.dart';
 
 class SectionTitle extends StatelessWidget {
@@ -25,7 +26,7 @@ class SectionTitle extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: press,
+          onTap: () => Navigator.pushNamed(context, AllProducts.routeName),
           child: Text(
             "See More",
             style: TextStyle(color: Color(0xFFBBBBBB)),

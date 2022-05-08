@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:tech_bay/components/default_button.dart';
 import 'package:tech_bay/models/Product.dart';
@@ -7,11 +8,14 @@ import 'package:tech_bay/size_config.dart';
 import 'product_description.dart';
 import 'top_rounded_container.dart';
 import 'product_images.dart';
+import 'package:get/get.dart';
+import 'package:tech_bay/models/cart_controller.dart';
 
 class Body extends StatelessWidget {
+  final cartController = Get.put(CartController());
   final Product product;
 
-  const Body({Key? key, required this.product}) : super(key: key);
+  Body({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +45,9 @@ class Body extends StatelessWidget {
                         ),
                         child: DefaultButton(
                           text: "Add To Cart",
-                          press: () {},
+                          press: () {
+                            cartController.addProduct(product);
+                          },
                         ),
                       ),
                     ),

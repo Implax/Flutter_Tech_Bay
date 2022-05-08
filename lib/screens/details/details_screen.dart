@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../../models/Product.dart';
+import '../../models/product_controller.dart';
 import 'components/body.dart';
 import 'components/custom_app_bar.dart';
+import 'package:get/get.dart';
 
 class DetailsScreen extends StatelessWidget {
   static String routeName = "/details";
-
+  final productController = Get.put(ProductController());
   @override
   Widget build(BuildContext context) {
     final ProductDetailsArguments agrs =
